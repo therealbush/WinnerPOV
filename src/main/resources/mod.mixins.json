@@ -1,0 +1,19 @@
+{
+  "required" : true,
+  "compatibilityLevel" : "JAVA_17",
+  "minVersion" : "0.8",
+
+  "package" : "winnerpov.mixins",
+  "client" : [
+    "MixinClientConnection",
+    "MixinDeathScreen",
+    "MixinGameOptions",
+    "MixinMinecraftClient",
+    "MixinOption",
+    "MixinTitleScreen"
+  ],
+
+  "injectors" : {
+    "defaultRequire" : 1
+  }
+}
