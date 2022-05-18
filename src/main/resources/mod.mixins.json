@@ -10,6 +10,7 @@
     "MixinGameOptions",
     "MixinMinecraftClient",
     "MixinOption",
+    "MixinScreen",
     "MixinTitleScreen"
   ],
 

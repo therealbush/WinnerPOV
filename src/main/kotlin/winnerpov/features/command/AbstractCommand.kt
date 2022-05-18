@@ -1,5 +1,6 @@
 package winnerpov.features.command
 
+import winnerpov.utilities.screen.UChat
 import java.util.ArrayList
 
 /**
@@ -10,4 +11,11 @@ import java.util.ArrayList
 abstract class AbstractCommand(val name : String)
 {
     abstract fun onCommand(Value : ArrayList<Double>)
+
+    fun error()
+    {
+        UChat.doClientSideMessage(
+            "§cCommand was written incorrectly! Example: <${this.name} 1>", true
+        )
+    }
 }

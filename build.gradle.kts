@@ -21,9 +21,11 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
 
+    implementation("io.github.classgraph:classgraph:4.8.146")
+    implementation("org.reflections:reflections:0.10.2")
+
     implementation(kotlin("stdlib", kotlinVersion))
     implementation(kotlin("stdlib-jdk8", kotlinVersion))
-    implementation(kotlin("reflect", kotlinVersion))
 }
 
 tasks {

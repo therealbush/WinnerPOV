@@ -28,9 +28,9 @@ import java.util.regex.*;
 {
     @Inject(
             method = {"send(Lnet/minecraft/network/Packet;Lio/netty/util/concurrent/GenericFutureListener;)V"},
-            at = {@At(
+            at = @At(
                     value = "HEAD"
-            )},
+            ),
             cancellable = true
     )
 
