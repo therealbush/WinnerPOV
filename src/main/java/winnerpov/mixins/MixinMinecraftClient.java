@@ -26,6 +26,6 @@ import winnerpov.WinnerPOV;
 
     public void getWindowTitle(CallbackInfoReturnable<String> cir)
     {
-        cir.setReturnValue(WinnerPOV.Companion.getModID(true));
+        cir.setReturnValue(WinnerPOV.Companion.getModID(3));
     }
 }

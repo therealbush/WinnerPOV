@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * {@code render} - Winner POV name and version have been added in the upper left corner of the screen.
+ * {@code init()} - removed unnecessary buttons in the title screen.
  *
  * @version     10.1-Helsinki
  * @author      GitHub : mjaucher
@@ -29,9 +29,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
     private void init(MinecraftClient client, int width, int height, CallbackInfo ci)
     {
-        String[] keys = {"narrator.button.language", "narrator.button.accessibility", "menu.online", "menu.options", "menu.quit"};
+        String[] keys = {
+                "narrator.button.language", "narrator.button.accessibility", "menu.online",
+                "menu.singleplayer", "menu.multiplayer", "menu.quit", "menu.options"
+        };
 
         Screen screen = (Screen)(Object)this;
+
+        int l = height / 4 + 48;
 
         if (screen instanceof TitleScreen)
         {
@@ -42,7 +47,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
                     if (widget.getMessage() instanceof TranslatableText &&
                             ((TranslatableText) widget.getMessage()).getKey() == key)
                     {
-                        if (key == keys[3] || key == keys[4]) widget.y = 231;
+                        if (key == keys[3] || key == keys[4])
+                            widget.y = l + 24 * (key == keys[3] ? 1 : 2) - 12;
+
+                        else if (key == keys[5] || key == keys[6])
+                            widget.y = l + 84;
+
                         else widget.visible = false;
                     }
                 }

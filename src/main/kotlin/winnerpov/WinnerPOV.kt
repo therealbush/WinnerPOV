@@ -4,11 +4,9 @@ import net.fabricmc.api.ModInitializer
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.core.config.Configurator
 import winnerpov.features.command.AbstractCommand
-import winnerpov.features.command.commands.HelpCommand
-import winnerpov.features.command.commands.TestCommand
-import winnerpov.features.command.commands.VClipCommand
+import winnerpov.features.command.commands.*
+
 import java.awt.Color
-import java.util.*
 
 /**
  * Winner POV initializer.
@@ -40,9 +38,20 @@ class WinnerPOV : ModInitializer
 
         var commandsList : ArrayList<AbstractCommand> = ArrayList()
 
-        fun getModID(withVersion : Boolean) : String
+        fun getModID(statusID : Int) : String
         {
-            return "Winner POV" + if (withVersion) " - 10.1-Helsinki" else ""
+            val name = "Winner POV"
+            val ver = "10.1-Helsinki"
+            val git = "https://github.com/mjaucher/WinnerPOV"
+
+            return when (statusID)
+            {
+                0 -> name
+                1 -> ver
+                2 -> git
+                3 -> "$name - $ver"
+                else -> "null!!!"
+            }
         }
     }
 }

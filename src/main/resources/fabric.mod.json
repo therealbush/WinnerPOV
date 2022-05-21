@@ -13,6 +13,9 @@
   "icon": "assets/large.png",
   "environment": "*",
   "entrypoints": {
+    "modmenu": [
+      "winnerpov.ModMenu"
+    ],
     "main": [
       "winnerpov.WinnerPOV"
     ]
