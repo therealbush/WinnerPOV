@@ -3,8 +3,8 @@ package winnerpov
 import net.fabricmc.api.ModInitializer
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.core.config.Configurator
-import winnerpov.features.command.AbstractCommand
-import winnerpov.features.command.commands.*
+import winnerpov.command.AbstractCommand
+import winnerpov.command.commands.*
 
 import java.awt.Color
 
@@ -22,7 +22,7 @@ class WinnerPOV : ModInitializer
         Configurator.setRootLevel(Level.ALL)
 
         implInitialize(
-            HelpCommand(), TestCommand(), VClipCommand()
+            HelpCommand(), InfoCommand(), RotationCommand(), TestCommand(), VClipCommand()
         )
     }
 

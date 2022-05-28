@@ -2,11 +2,15 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.6.21"
-    id("fabric-loom") version "0.11-SNAPSHOT"
+    id("fabric-loom") version "0.12-SNAPSHOT"
 }
 
 val minecraftVersion = "1.18.2"
 val kotlinVersion = "1.6.21"
+
+val fabricAPI = "0.53.0+1.18.2"
+val yarn = "1.18.2+build.3:v2"
+val loaderVersion = "0.14.6"
 
 repositories {
     maven {
@@ -22,10 +26,11 @@ repositories {
 
 dependencies {
     minecraft("com.mojang:minecraft:$minecraftVersion")
+    mappings("net.fabricmc:yarn:$yarn")
 
-    mappings("net.fabricmc:yarn:$minecraftVersion+build.1:v2")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.48.0+$minecraftVersion")
-    modImplementation("net.fabricmc:fabric-loader:0.13.3")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricAPI")
+    modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
+
     modImplementation("com.terraformersmc:modmenu:3.2.2")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")

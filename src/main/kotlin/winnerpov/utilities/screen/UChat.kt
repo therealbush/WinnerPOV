@@ -6,6 +6,11 @@ import net.minecraft.util.Formatting
 import winnerpov.Global
 import winnerpov.WinnerPOV
 
+/**
+ * @version     10.1-Helsinki
+ * @author      GitHub : mjaucher
+ */
+
 class UChat
 {
     companion object : Global
