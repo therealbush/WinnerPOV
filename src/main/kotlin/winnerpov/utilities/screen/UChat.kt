@@ -11,23 +11,20 @@ import winnerpov.WinnerPOV
  * @author      GitHub : mjaucher
  */
 
-class UChat
+object UChat : Global
 {
-    companion object : Global
+    fun doClientSideMessage(message: String, withPrefix: Boolean)
     {
-        fun doClientSideMessage(message : String, withPrefix : Boolean)
-        {
-            val result = LiteralText("")
+        val result = LiteralText("")
 
-            val prefix = LiteralText("[WinnerPOV] ")
-            prefix.style = prefix.style.withColor(TextColor.fromRgb(WinnerPOV.modColor.rgb))
+        val prefix = LiteralText("[WinnerPOV] ")
+        prefix.style = prefix.style.withColor(TextColor.fromRgb(WinnerPOV.modColor.rgb))
 
-            val chatMessage = LiteralText(message)
+        val chatMessage = LiteralText(message)
 
-            if (withPrefix) result.append(prefix)
-            result.append(chatMessage).style = chatMessage.style.withFormatting(Formatting.RESET)
+        if (withPrefix) result.append(prefix)
+        result.append(chatMessage).style = chatMessage.style.withFormatting(Formatting.RESET)
 
-            minecraft.inGameHud.chatHud.addMessage(result)
-        }
+        minecraft.inGameHud.chatHud.addMessage(result)
     }
 }

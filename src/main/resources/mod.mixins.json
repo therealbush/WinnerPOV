@@ -5,6 +5,7 @@
   "package": "winnerpov.mixins",
   "client": [
     "MixinDeathScreen",
+    "MixinDebugHud",
     "MixinGameOptions",
     "MixinItemGroup",
     "MixinMinecraftClient",

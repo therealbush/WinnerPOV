@@ -3,6 +3,7 @@ package winnerpov.mixins;
 import net.minecraft.item.*;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
             cancellable = true
     )
 
-    public void getIcon(CallbackInfoReturnable<ItemStack> cir)
+    public void getIcon(@NotNull CallbackInfoReturnable<ItemStack> cir)
     {
         cir.setReturnValue(new ItemStack(switch (this.id) {
             case "buildingBlocks" -> Items.OBSIDIAN;

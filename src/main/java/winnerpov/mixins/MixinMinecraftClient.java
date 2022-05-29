@@ -1,6 +1,7 @@
 package winnerpov.mixins;
 
 import net.minecraft.client.MinecraftClient;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,8 +25,8 @@ import winnerpov.WinnerPOV;
             cancellable = true
     )
 
-    public void getWindowTitle(CallbackInfoReturnable<String> cir)
+    public void getWindowTitle(@NotNull CallbackInfoReturnable<String> cir)
     {
-        cir.setReturnValue(WinnerPOV.Companion.getModID(3));
+        cir.setReturnValue(WinnerPOV.Companion.getModID(4));
     }
 }

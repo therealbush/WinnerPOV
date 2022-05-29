@@ -8,13 +8,10 @@ import winnerpov.Global
  * @author      GitHub : mjaucher
  */
 
-class UInteract
+object UInteract : Global
 {
-    companion object : Global
+    fun doPacketSend(Packet : Packet<*>)
     {
-        fun doPacketSend(Packet : Packet<*>)
-        {
-            player.networkHandler.sendPacket(Packet)
-        }
+        player.networkHandler.sendPacket(Packet)
     }
 }

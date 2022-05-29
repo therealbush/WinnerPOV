@@ -39,7 +39,7 @@ import java.awt.*;
         Color color = WinnerPOV.Companion.getModColor();
 
         MinecraftClient.getInstance().textRenderer.drawWithShadow(
-                matrices, WinnerPOV.Companion.getModID(3), 2, 2, color.getRGB()
+                matrices, WinnerPOV.Companion.getModID(4), 2.0F, 2.0F, color.getRGB()
         );
     }
 }

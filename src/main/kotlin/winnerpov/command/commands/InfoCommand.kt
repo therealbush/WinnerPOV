@@ -2,7 +2,7 @@ package winnerpov.command.commands
 
 import winnerpov.Global
 import winnerpov.command.AbstractCommand
-import winnerpov.utilities.player.UDimension
+import winnerpov.utilities.player.UStats
 import winnerpov.utilities.screen.UChat
 
 /**
@@ -26,10 +26,10 @@ class InfoCommand : Global, AbstractCommand("info")
 
                 info = when (index)
                 {
-                    1 -> arrayListOf("Position", "X: ${player.blockX}, Y: ${player.blockY}, Z: ${player.blockZ}")
-                    2 -> arrayListOf("Dimension", UDimension.getName(UDimension.getID()))
-                    3 -> arrayListOf("UUID", player.uuid.toString())
-                    else -> arrayListOf("Name", player.gameProfile.name)
+                    1 -> arrayListOf("Position", UStats.getPosition())
+                    2 -> arrayListOf("Dimension", UStats.getDimension())
+                    3 -> arrayListOf("UUID", UStats.getUUID())
+                    else -> arrayListOf("Name", UStats.getName())
                 }
 
                 UChat.doClientSideMessage("§a${info[0]}: ${info[1]}.", false)

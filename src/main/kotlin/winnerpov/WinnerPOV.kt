@@ -49,7 +49,7 @@ class WinnerPOV : ModInitializer
                 0 -> name
                 1 -> ver
                 2 -> git
-                3 -> "$name - $ver"
+                4 -> "$name - $ver"
                 else -> "null!!!"
             }
         }

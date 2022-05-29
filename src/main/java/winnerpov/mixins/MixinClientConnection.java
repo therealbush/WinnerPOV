@@ -37,7 +37,7 @@ import java.util.regex.*;
     public void send(Packet<?> packet, GenericFutureListener<? extends Future<? super Void>> callback, CallbackInfo ci)
     {
         if (packet instanceof GameJoinS2CPacket)
-            UChat.Companion.doClientSideMessage("For information: <help 1>.", true);
+            UChat.INSTANCE.doClientSideMessage("For information: <help 1>.", true);
 
         if (packet instanceof ChatMessageC2SPacket Packet)
         {
