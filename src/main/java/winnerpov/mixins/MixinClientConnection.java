@@ -15,7 +15,6 @@ import winnerpov.command.AbstractCommand;
 import winnerpov.utilities.screen.UChat;
 
 import java.util.ArrayList;
-import java.util.regex.*;
 
 /**
  * {@code send()} - command system. ; )
@@ -39,37 +38,46 @@ import java.util.regex.*;
         if (packet instanceof GameJoinS2CPacket)
             UChat.INSTANCE.doClientSideMessage("For information: <help 1>.", true);
 
-        if (packet instanceof ChatMessageC2SPacket Packet)
+        if (packet instanceof ChatMessageC2SPacket)
         {
-            for (AbstractCommand command : WinnerPOV.Companion.getCommandsList())
-            {
-                if (Packet.getChatMessage().startsWith("<") && Packet.getChatMessage().endsWith(">"))
-                {
-                    String getMessage = Packet.getChatMessage();
+            String message = ((ChatMessageC2SPacket) packet).getChatMessage();
 
+            if (message.startsWith("<") && message.endsWith(">"))
+            {
+                for (AbstractCommand command : WinnerPOV.Companion.getCommandsList())
+                {
                     ArrayList<Double> values = new ArrayList();
 
-                    Pattern pattern = Pattern.compile("\\d+");
+                    String head = "<" + command.getName() + " ";
 
-                    Matcher matcher = pattern.matcher(getMessage);
-
-                    int start = 0;
-
-                    while (matcher.find(start))
+                    if (message.startsWith(head))
                     {
-                        String value = getMessage.substring(matcher.start(), matcher.end());
-                        values.add(Double.parseDouble(value));
-                        start = matcher.end();
-                    }
+                        String valueString = message.substring(head.length(), message.length() - 1);
 
-                    if (Packet.getChatMessage().startsWith("<" + command.getName()))
-                    {
-                        command.onCommand(values);
+                        if (!command.getStringCommand())
+                        {
+                            try {
+                                String[] valueArray = valueString.split(" ");
+
+                                for (String value : valueArray)
+                                    values.add(Double.parseDouble(value));
+
+                                if (command.getValuesCount() == values.size())
+                                    command.onDoubleCommand(values);
+                                else command.error();
+
+                            } catch (NumberFormatException e) {
+                                command.error();
+                            }
+                        } else {
+                            command.onStringCommand(valueString);
+                        }
                     }
 
                     values.clear();
-                    ci.cancel();
                 }
+
+                ci.cancel();
             }
         }
     }

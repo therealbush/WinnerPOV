@@ -2,19 +2,17 @@ package winnerpov.command.commands
 
 import winnerpov.Global
 import winnerpov.command.AbstractCommand
+import java.util.ArrayList
 
 /**
  * @version     10.0-Warshaw
  * @author      GitHub : mjaucher
  */
 
-class VClipCommand : Global, AbstractCommand("vclip")
+class VClipCommand : Global, AbstractCommand(false, "vclip", 1)
 {
-    override fun onCommand(Value : ArrayList<Double>)
+    override fun onDoubleCommand(doubleValue : ArrayList<Double>)
     {
-        if (Value.size == 1)
-        {
-            player.setPosition(player.x, player.y + Value[0], player.z)
-        } else error()
+        player.setPosition(player.x, player.y + doubleValue[0], player.z)
     }
 }

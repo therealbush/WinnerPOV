@@ -13,14 +13,6 @@ val yarn = "1.18.2+build.3:v2"
 val loaderVersion = "0.14.6"
 
 repositories {
-    maven {
-        url = uri("https://maven.terraformersmc.com/")
-    }
-
-    maven {
-        url = uri("https://maven.terraformersmc.com/releases/")
-    }
-
     mavenCentral()
 }
 
@@ -30,8 +22,6 @@ dependencies {
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricAPI")
     modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
-
-    modImplementation("com.terraformersmc:modmenu:3.2.2")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
     implementation(kotlin("stdlib", kotlinVersion))

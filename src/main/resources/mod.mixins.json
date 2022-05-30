@@ -4,6 +4,7 @@
   "minVersion": "0.8",
   "package": "winnerpov.mixins",
   "client": [
+    "MixinClientConnection",
     "MixinDeathScreen",
     "MixinDebugHud",
     "MixinGameOptions",
@@ -11,8 +12,7 @@
     "MixinMinecraftClient",
     "MixinOption",
     "MixinScreen",
-    "MixinTitleScreen",
-    "MixinClientConnection"
+    "MixinTitleScreen"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -12,11 +12,11 @@ import winnerpov.utilities.screen.UChat
  * @author      GitHub : mjaucher
  */
 
-class InfoCommand : Global, AbstractCommand("info")
+class InfoCommand : Global, AbstractCommand(false, "info", 1)
 {
-    override fun onCommand(Value : ArrayList<Double>)
+    override fun onDoubleCommand(doubleValue : ArrayList<Double>)
     {
-        if (Value.size == 1 && Value[0] == 1.0)
+        if (doubleValue[0] == 1.0)
         {
             var info : ArrayList<String>
 
