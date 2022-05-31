@@ -24,7 +24,10 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
 
     implementation("com.google.cloud:google-cloud-translate:2.2.0")
-    implementation("com.google.http-client:google-http-client-gson:LATEST")
+    implementation("com.google.http-client:google-http-client-gson:1.41.8")
+
+    for (ind in arrayOf("jse", "jme"))
+        implementation("org.luaj:luaj-$ind:3.0.1")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
     implementation(kotlin("stdlib", kotlinVersion))

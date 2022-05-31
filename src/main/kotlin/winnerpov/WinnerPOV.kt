@@ -3,8 +3,8 @@ package winnerpov
 import net.fabricmc.api.ModInitializer
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.core.config.Configurator
-import winnerpov.command.AbstractCommand
-import winnerpov.command.commands.*
+import winnerpov.command.Commands
+import winnerpov.utilities.system.UFile
 
 import java.awt.Color
 
@@ -21,22 +21,14 @@ class WinnerPOV : ModInitializer
     {
         Configurator.setRootLevel(Level.ALL)
 
-        implInitialize(
-            HelpCommand(), InfoCommand(), RotationCommand(), TestCommand(), TranslateCommand(), VClipCommand()
-        )
-    }
+        Commands.initializeCommands()
 
-    private fun implInitialize(vararg commands : AbstractCommand)
-    {
-        for (command in commands)
-            commandsList.add(command)
+        UFile.initialize()
     }
 
     companion object
     {
         var modColor = Color(155, 200, 255, 255)
-
-        var commandsList : ArrayList<AbstractCommand> = ArrayList()
 
         fun getModID(statusID : Int) : String
         {

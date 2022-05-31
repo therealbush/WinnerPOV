@@ -1,22 +1,25 @@
 package winnerpov.command.commands
 
 import winnerpov.Global
-import winnerpov.command.AbstractCommand
+import winnerpov.command.BooleanCommand
+import winnerpov.utilities.misc.UValues
 import winnerpov.utilities.player.UStats
 import winnerpov.utilities.screen.UChat
 
 /**
  * Player info command.
  *
- * @version     10.1-Helsinki
- * @author      GitHub : mjaucher
+ * @since     10.1-Helsinki
+ * @author    GitHub : mjaucher
  */
 
-class InfoCommand : Global, AbstractCommand(false, "info", 1)
+class InfoCommand : Global, BooleanCommand("info", "Player info command.")
 {
-    override fun onDoubleCommand(doubleValue : ArrayList<Double>)
+    override val initialize : Boolean = true
+
+    override fun onCommand(value : Boolean)
     {
-        if (doubleValue[0] == 1.0)
+        if (value)
         {
             var info : ArrayList<String>
 
@@ -35,6 +38,14 @@ class InfoCommand : Global, AbstractCommand(false, "info", 1)
                 UChat.doClientSideMessage("§a${info[0]}: ${info[1]}.", false)
                 if (index == 4) break
             } while (true)
-        } else error()
+        }
+    }
+
+    override fun getHelpText() : Array<String>
+    {
+        return arrayOf(
+            "If value equals true, some information about your player is written in the chat.",
+            "${UValues.upperFirstLetter(name)} example: <$name true>"
+        )
     }
 }

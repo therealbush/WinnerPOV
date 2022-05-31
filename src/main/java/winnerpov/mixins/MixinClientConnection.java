@@ -11,10 +11,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import winnerpov.command.AbstractCommand;
+import winnerpov.command.BooleanCommand;
+import winnerpov.command.Commands;
+import winnerpov.command.NumberCommand;
+import winnerpov.command.StringCommand;
 import winnerpov.utilities.screen.UChat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * {@code send()} - command system. ; )
@@ -36,7 +40,7 @@ import java.util.ArrayList;
     public void send(Packet<?> packet, GenericFutureListener<? extends Future<? super Void>> callback, CallbackInfo ci)
     {
         if (packet instanceof GameJoinS2CPacket)
-            UChat.INSTANCE.doClientSideMessage("For information: <help 1>.", true);
+            UChat.INSTANCE.doClientSideMessage("For information: <help head>.", true);
 
         if (packet instanceof ChatMessageC2SPacket)
         {
@@ -44,37 +48,75 @@ import java.util.ArrayList;
 
             if (message.startsWith("<") && message.endsWith(">"))
             {
-                for (AbstractCommand command : WinnerPOV.Companion.getCommandsList())
+                for (NumberCommand numCommand : Commands.INSTANCE.getNumberCommandList())
                 {
                     ArrayList<Double> values = new ArrayList();
 
-                    String head = "<" + command.getName() + " ";
+                    String head = "<" + numCommand.getName() + " ";
 
                     if (message.startsWith(head))
                     {
                         String valueString = message.substring(head.length(), message.length() - 1);
 
-                        if (!command.getStringCommand())
-                        {
-                            try {
-                                String[] valueArray = valueString.split(" ");
+                        try {
+                            String[] valueArray = valueString.split(" ");
 
-                                for (String value : valueArray)
-                                    values.add(Double.parseDouble(value));
+                            for (String value : valueArray)
+                                values.add(Double.parseDouble(value));
 
-                                if (command.getValuesCount() == values.size())
-                                    command.onDoubleCommand(values);
-                                else command.error();
-
-                            } catch (NumberFormatException e) {
-                                command.error();
+                            if (numCommand.getInitialize())
+                            {
+                                if (numCommand.getValuesCount() == values.size())
+                                    numCommand.onCommand(values);
+                                else numCommand.error();
                             }
-                        } else {
-                            command.onStringCommand(valueString);
+                        } catch (NumberFormatException e) {
+                            numCommand.error();
                         }
                     }
 
                     values.clear();
+                }
+
+                for (StringCommand stringCommand : Commands.INSTANCE.getStringCommandList())
+                {
+                    ArrayList<String> values = new ArrayList();
+
+                    String head = "<" + stringCommand.getName() + " ";
+
+                    if (message.startsWith(head))
+                    {
+                        String valueString = message.substring(head.length(), message.length() - 1);
+
+                        String[] valueArray = valueString.split(" ");
+
+                        values.addAll(Arrays.asList(valueArray));
+
+                        if (stringCommand.getValuesCount() == values.size()
+                                && stringCommand.getInitialize())
+                            stringCommand.onCommand(values);
+                    }
+
+                    values.clear();
+                }
+
+                for (BooleanCommand booleanCommand : Commands.INSTANCE.getBooleanCommandList())
+                {
+                    String head = "<" + booleanCommand.getName() + " ";
+
+                    if (message.startsWith(head))
+                    {
+                        String valueString = message.substring(head.length(), message.length() - 1);
+
+                        if (booleanCommand.getInitialize())
+                        {
+                            if (valueString.equals("true"))
+                                booleanCommand.onCommand(true);
+                            else if (valueString.equals("false"))
+                                booleanCommand.onCommand(true);
+                            else booleanCommand.error();
+                        }
+                    }
                 }
 
                 ci.cancel();
