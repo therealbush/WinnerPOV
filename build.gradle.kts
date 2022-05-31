@@ -23,6 +23,9 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricAPI")
     modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
 
+    implementation("com.google.cloud:google-cloud-translate:2.2.0")
+    implementation("com.google.http-client:google-http-client-gson:LATEST")
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
     implementation(kotlin("stdlib", kotlinVersion))
     implementation(kotlin("stdlib-jdk8", kotlinVersion))

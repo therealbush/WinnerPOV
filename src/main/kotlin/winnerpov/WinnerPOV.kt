@@ -22,7 +22,7 @@ class WinnerPOV : ModInitializer
         Configurator.setRootLevel(Level.ALL)
 
         implInitialize(
-            HelpCommand(), InfoCommand(), RotationCommand(), TestCommand(), VClipCommand()
+            HelpCommand(), InfoCommand(), RotationCommand(), TestCommand(), TranslateCommand(), VClipCommand()
         )
     }
 
