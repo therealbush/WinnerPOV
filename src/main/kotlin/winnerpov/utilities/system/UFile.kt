@@ -13,8 +13,8 @@ object UFile : Global
 
     fun initialize()
     {
-        create(directory)
-        create(scripts)
+        createFolder(directory)
+        createFolder(scripts)
     }
 
     fun exist(textPath : String) : Boolean
@@ -26,7 +26,33 @@ object UFile : Global
         }
     }
 
+    fun delete(textPath : String)
+    {
+        try {
+            val file = File(textPath)
+
+            if (file.delete()) {
+                println("File has been deleted!")
+            } else println("File not found!")
+        } catch (exception : Exception) {
+            exception.printStackTrace()
+        }
+    }
+
     fun create(textPath : String)
+    {
+        try {
+            val file = File(textPath)
+
+            if (file.createNewFile())
+                println("File has been created!")
+            else println(">:(")
+        } catch (exception : Exception) {
+            exception.printStackTrace()
+        }
+    }
+
+    fun createFolder(textPath : String)
     {
         val path = getPath(textPath)
 

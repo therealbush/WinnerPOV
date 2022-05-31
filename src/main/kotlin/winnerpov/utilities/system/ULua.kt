@@ -11,11 +11,20 @@ object ULua
 
         val chunk : LuaValue = globals.loadfile("${UFile.scripts}/$script")
 
-        chunk.call(LuaValue.valueOf(script))
+        try {
+            chunk.call(LuaValue.valueOf(script))
+        } catch (exception : Exception) {
+            println(exception)
+        }
     }
 
     fun create(name : String)
     {
         UFile.create(UFile.scripts + name + ".lua")
+    }
+
+    fun delete(name : String)
+    {
+        UFile.delete(UFile.scripts + name + ".lua")
     }
 }

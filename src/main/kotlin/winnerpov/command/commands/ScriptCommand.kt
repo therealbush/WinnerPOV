@@ -30,6 +30,9 @@ class ScriptCommand : Global, StringCommand("script", "Runs or creates a script.
             {
                 ULua.create(value[1])
             } else error("A file already exists!")
+        } else if (value[0] == "delete" || value[0] == "del" || value[0] == "rem" || value[0] == "remove") {
+            ULua.delete(value[1])
+
         } else error("Command was written incorrectly! Example: <${this.name} run script.lua>")
     }
 
