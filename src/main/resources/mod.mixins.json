@@ -2,16 +2,10 @@
   "required": true,
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
-  "package": "winnerpov.mixins",
+  "package": "me.meowcher.winnerpov.mixins",
   "client": [
     "MixinClientConnection",
-    "MixinDeathScreen",
-    "MixinDebugHud",
-    "MixinGameOptions",
-    "MixinItemGroup",
     "MixinMinecraftClient",
-    "MixinOption",
-    "MixinScreen",
     "MixinTitleScreen"
   ],
   "injectors": {

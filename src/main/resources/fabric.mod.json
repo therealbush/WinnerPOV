@@ -1,29 +1,28 @@
 {
   "schemaVersion": 1,
   "id": "winnerpov",
-  "version": "10.1-Helsinki",
-  "name": "Winner POV",
+  "version": "10.09-Tampere",
+  "name": "WinnerPOV",
   "description": "Winners client.",
   "authors": [
     "мяучер"
   ],
   "contact": {
-    "homepage": "https://github.com/Jackesparragos"
+    "homepage": "https://github.com/mjaucher/WinnerPOV"
   },
   "icon": "assets/large.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "winnerpov.WinnerPOV"
+      "me.meowcher.winnerpov.Initializer"
     ]
   },
   "mixins": [
     "mod.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.13.3",
+    "fabricloader": ">=0.14.6",
     "fabric": "*",
-    "minecraft": "~1.18.2",
     "java": ">=17"
   }
 }
