@@ -5,14 +5,18 @@ plugins {
     id("fabric-loom") version "0.12-SNAPSHOT"
 }
 
-val minecraftVersion = "1.19-pre3"
-val kotlinVersion = "1.6.21"
+val modId = "Winner-POV"
+val modVersion = "10.1-Helsinki"
 
-val fabricAPI = "0.53.4+1.19"
-val yarn = "1.19-pre3+build.1"
-val loaderVersion = "0.14.6"
+val minecraft = "1.19-rc2"
+val kotlin = "1.6.21"
+
+val fabricAPI = "0.55.1+1.19"
+val yarn = "+build.1"
+val fabricLoader = "0.14.6"
 
 repositories {
+
     maven {
         url = uri("https://jitpack.io")
     }
@@ -21,34 +25,38 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:$minecraftVersion")
-    mappings("net.fabricmc:yarn:$yarn")
+
+    minecraft("com.mojang:minecraft:$minecraft")
+    mappings("net.fabricmc:yarn:$minecraft$yarn:v2")
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricAPI")
-    modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
+    modImplementation("net.fabricmc:fabric-loader:$fabricLoader")
 
     implementation("com.github.therealbush:eventbus-kotlin:1.0.1")
-    //implementation("com.github.therealbush:translator:1.0.0")
+    implementation("com.github.therealbush:translator:1.0.0")
+
+    arrayOf("jse", "jme").forEach {
+        implementation("org.luaj:luaj-$it:3.0.1")
+    }
 
     implementation("com.google.code.gson:gson:2.9.0")
 
-    for (ind in arrayOf("jse", "jme"))
-        implementation("org.luaj:luaj-$ind:3.0.1")
-
-    implementation(kotlin("stdlib", kotlinVersion))
-    implementation(kotlin("stdlib-jdk8", kotlinVersion))
-
-    implementation("org.reflections:reflections:0.10.2")
+    implementation(kotlin("stdlib", kotlin))
+    implementation(kotlin("stdlib-jdk8", kotlin))
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
 }
 
-tasks {
-    getByName<ProcessResources>("processResources") {
-        inputs.property("version", version)
+base {
+    archivesBaseName = "$modId-$modVersion"
+}
 
+tasks {
+
+    getByName<ProcessResources>("processResources") {
         filesMatching("fabric.mod.json") {
+
             expand(mutableMapOf("version" to version))
         }
     }

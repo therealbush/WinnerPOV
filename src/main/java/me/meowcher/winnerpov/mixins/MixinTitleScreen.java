@@ -1,6 +1,5 @@
 package me.meowcher.winnerpov.mixins;
 
-import me.meowcher.winnerpov.Main;
 import me.meowcher.winnerpov.control.utils.DrawUtils;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -15,8 +14,9 @@ import java.awt.*;
  * @author     мяучер (meowcher)
  */
 
-@Mixin({TitleScreen.class}) public class MixinTitleScreen
-{
+@Mixin({TitleScreen.class})
+public class MixinTitleScreen {
+
     @Inject(
             method = {"render"},
             at = @At(
@@ -24,12 +24,19 @@ import java.awt.*;
             )
     )
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci)
-    {
-        Color color = Main.INSTANCE.defaultColor();
+    public void render(
+            MatrixStack matrices,
+            int mouseX,
+            int mouseY,
+            float delta,
+            CallbackInfo ci
+    ) {
+        Color color = new Color(155, 200, 255, 255);
 
-        DrawUtils.INSTANCE.drawText(
-                Main.INSTANCE.modInfo(4), color, 2.0F, 2.0F
+        DrawUtils.INSTANCE.drawText(JavaCentral.modName + " - " + JavaCentral.modVersion,
+                color,
+                2.0F,
+                2.0F
         );
     }
 }

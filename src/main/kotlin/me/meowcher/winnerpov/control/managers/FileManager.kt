@@ -1,6 +1,6 @@
-package me.meowcher.winnerpov.control
+package me.meowcher.winnerpov.control.managers
 
-import me.meowcher.winnerpov.Main
+import me.meowcher.winnerpov.Central
 import me.meowcher.winnerpov.control.utils.FileUtils
 
 /**
@@ -8,18 +8,16 @@ import me.meowcher.winnerpov.control.utils.FileUtils
  * @author     мяучер (meowcher)
  */
 
-object FileManager
-{
-    private val initStringPath = "${Main.minecraft().runDirectory.path}/winnerpov"
+object FileManager : Central {
 
+    private val initStringPath = "${minecraft().runDirectory.path}/winnerpov"
     val scriptsStringPath = "$initStringPath/scripts"
     val configsStringPath = "$initStringPath/configs"
 
-    fun initialize()
-    {
+    fun initialize() {
+
         FileUtils.createFolder(FileUtils.path(initStringPath))
         FileUtils.createFolder(FileUtils.path(scriptsStringPath))
-
         FileUtils.createFolder(FileUtils.path(configsStringPath))
         FileUtils.createFile(FileUtils.path("$configsStringPath/scripts.json"))
     }

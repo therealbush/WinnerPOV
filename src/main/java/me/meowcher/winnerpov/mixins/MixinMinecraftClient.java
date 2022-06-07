@@ -1,30 +1,26 @@
 package me.meowcher.winnerpov.mixins;
 
 import me.bush.eventbuskotlin.EventBus;
-import me.meowcher.winnerpov.Main;
-import me.meowcher.winnerpov.control.FileManager;
+import me.meowcher.winnerpov.command.commands.ScriptCmd;
+import me.meowcher.winnerpov.control.managers.FileManager;
 import me.meowcher.winnerpov.control.utils.*;
-import me.meowcher.winnerpov.events.Event;
-import me.meowcher.winnerpov.events.TickEvent;
-import me.meowcher.winnerpov.impl.command.commands.ScriptCmd;
+import me.meowcher.winnerpov.events.*;
 import me.meowcher.winnerpov.scripts.Scripts;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.profiler.Profiler;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
 
 /**
  * @since      10.1-Helsinki
  * @author     мяучер (meowcher)
  */
 
-@Mixin({MinecraftClient.class}) public class MixinMinecraftClient
-{
+@Mixin({MinecraftClient.class})
+public class MixinMinecraftClient {
+
     @Shadow private Profiler profiler;
 
     @Inject(
@@ -35,8 +31,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
             cancellable = true
     )
 
-    public void tick(CallbackInfo info)
-    {
+    public void tick(
+            CallbackInfo info
+    ) {
         EventBus bus = Event.INSTANCE.getBushBus();
 
         bus.subscribe(this);
@@ -53,19 +50,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
         bus.unsubscribe(this);
 
-        for (String script : ScriptCmd.INSTANCE.getScriptsArrayList())
-        {
+        for (String script : ScriptCmd.INSTANCE.getScriptsArrayList()) {
+
             try {
-                if (FileUtils.INSTANCE.fileExist(FileManager.INSTANCE.getScriptsStringPath() + "/" + script))
+                if (FileUtils.INSTANCE.fileExists(FileManager.INSTANCE.getScriptsStringPath() + "/" + script))
                     Scripts.INSTANCE.run(script);
                 else
                     ScriptCmd.INSTANCE.setScriptsArrayList(
-                            Main.INSTANCE.deleteListElement(ScriptCmd.INSTANCE.getScriptsArrayList(), script)
+                            ArrayListUtils.INSTANCE.deleteListElement(
+                                    ScriptCmd.INSTANCE.getScriptsArrayList(),
+                                    script
+                            )
                     );
 
             } catch (Exception exception) {
-
-                ChatUtils.INSTANCE.clientMessage("§c" + exception, true);
+                ChatUtils.INSTANCE.clientMessage(
+                        "§c" + exception,
+                        true
+                );
             }
         }
     }
@@ -78,8 +80,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
             cancellable = true
     )
 
-    public void getWindowTitle(@NotNull CallbackInfoReturnable<String> cir)
-    {
-        cir.setReturnValue(Main.INSTANCE.modInfo(4));
+    public void getWindowTitle(
+            @NotNull CallbackInfoReturnable<String> cir
+    ) {
+        cir.setReturnValue(
+                JavaCentral.modName + " - " + JavaCentral.modVersion
+        );
     }
 }

@@ -1,6 +1,6 @@
 package me.meowcher.winnerpov.control.utils
 
-import me.meowcher.winnerpov.Main
+import me.meowcher.winnerpov.Central
 import net.minecraft.network.Packet
 
 /**
@@ -8,16 +8,9 @@ import net.minecraft.network.Packet
  * @author     мяучер (meowcher)
  */
 
-object InteractUtils
-{
-    fun sendPacket(packet : Packet<*>)
-    {
-        Main.minecraft().player!!.networkHandler.sendPacket(packet)
-    }
+object InteractUtils : Central {
 
-    fun sendPackets(vararg packets : Packet<*>)
-    {
-        for (ind in packets)
-            sendPacket(ind)
-    }
+    fun sendPackets(
+        vararg packets : Packet<*>
+    ) = packets.forEach { minecraft().player!!.networkHandler.sendPacket(it) }
 }
