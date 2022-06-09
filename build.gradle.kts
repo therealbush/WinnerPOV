@@ -33,7 +33,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:$fabricLoader")
 
     implementation("com.github.therealbush:eventbus-kotlin:1.0.1")
-    implementation("com.github.therealbush:translator:1.0.0")
+    implementation("com.github.therealbush:translator:1.0.2")
 
     arrayOf("jse", "jme").forEach {
         implementation("org.luaj:luaj-$it:3.0.1")

@@ -18,39 +18,24 @@ import me.meowcher.winnerpov.control.utils.ChatUtils
 )
 
 object TranslateCmd : AbstractCmd(), Central {
+    private val translator = Translator()
 
     override fun runStringCommand(
         values : ArrayList<String>
     ) {
-        val translator = Translator()
-
-        try {
-            var language : Language? = null
-
-            Language.values().forEach {
-                if (it.code == values[0])
-                    language = it
+        languageOf(values[0])?.let { language ->
+            translator.translateBlockingCatching(values[1], language).onFailure {
+                error("Could not process translation request!")
+                it.printStackTrace()
+            }.getOrNull()?.run {
+                ChatUtils.serverMessage(translatedText)
             }
-
-            if (language != null) {
-
-                val translation = translator.translateBlocking(
-                    values[1],
-                    language!!,
-                    Language.AUTO
-                )
-
-                ChatUtils.serverMessage(translation.translatedText)
-            } else
-                error("The language code is typed incorrectly!")
-        } catch (exception : Exception) {
-            exception.printStackTrace()
         }
     }
 
     override fun helpComments() : Array<String> =
         arrayOf(
-            "The first value must be the language code (ru - Russian, en - English, es - Spanish).",
+            "The first value must be a language code, language, or part of a language (ru, english, hawaiia, spani).",
             "The second value is the text you want to translate.",
             "Command example: <${name()} ru, Hello World!>."
         )
